@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { AuthService } from '../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +10,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+	user = {remember: false, username: '', password: ''};
+	hide: boolean = true;
+	isInitialized: boolean = false;
+
+  constructor(
+  	public dialogRef: MatDialogRef<LoginComponent>,
+  	private authService: AuthService
+  ) { }
 
   ngOnInit() {
+  }
+
+  onSubmit() {
+
+    console.log("User: ", this.user);
+		this.authService.logIn(this.user)
+		.subscribe(res => {
+			if(res.success) {
+				this.dialogRef.close();
+				if( !this.isInitialized ) {
+					this.authService.loadUserCredentials();
+					this.isInitialized = true;
+				}
+			}
+			else {
+				this.user.username = '';
+				this.user.password = '';
+				this.user.remember = false;
+				this.hide = true;
+			}
+		}, (err) => {
+			this.user.username = '';
+			this.user.password = '';
+			this.user.remember = false;
+			this.hide = true;
+		});
   }
 
 }

@@ -12,8 +12,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
+import { SlideshowModule } from 'ng-simple-slideshow';
 
 import 'hammerjs';
+import { AuthService } from './services/auth.service';
+import { AuthInterceptor, UnauthorizedInterceptor } from './services/auth.interceptor';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import { baseURL } from './shared/baseurl';
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
@@ -21,6 +27,7 @@ import { GetStartedComponent } from './get-started/get-started.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -31,6 +38,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     LoginComponent,
     AdminComponent,
     DashboardComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,11 +70,28 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 		CommonModule,
 		FormsModule,
 		ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SlideshowModule
   ],
   providers: [
-
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UnauthorizedInterceptor,
+      multi: true
+    },
+    {
+      provide: 'BaseURL', useValue: baseURL
+    },
 	],
+  entryComponents: [
+    LoginComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

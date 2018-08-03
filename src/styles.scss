@@ -1,1 +1,17 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.flex-spacer {
+  flex: 1 1 auto;
+}
+
+.full-width {
+    width: 95%
+}
+
+.half-width {
+    width: 45%
+}
+
+.form-size {
+    width: 75%
+}

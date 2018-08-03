@@ -7,11 +7,18 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="!(isHandset$ | async)">
     <mat-toolbar color="primary">Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
-    </mat-nav-list>
+    <div *ngIf="username">
+      <mat-nav-list>
+        <h3 mat-subheader>일반사용자</h3>
+        <a mat-list-item href="#">Link 1</a>
+        <div *ngIf="admin">
+          <mat-divider></mat-divider>
+          <h3 mat-subheader>관리자</h3>
+          <a mat-list-item href="#">Link 2</a>
+          <a mat-list-item href="#">Link 3</a>
+        </div>
+      </mat-nav-list>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
@@ -24,6 +31,12 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>Q Methodology by DEU</span>
+
+      <span class="flex-spacer"></span>
+      <a *ngIf="!username" mat-button (click)="openLoginForm()"><span class="fa fa-sign-in fa-lg"></span> 로그인</a>
+      <div *ngIf="username && !admin">{{username}}</div>
+      <a *ngIf="username" mat-button (click)="logOut()"><span class="fa fa-sign-out fa-lg"></span>로그아웃</a>
+
     </mat-toolbar>
     <!-- Add Content Here -->
   </mat-sidenav-content>
