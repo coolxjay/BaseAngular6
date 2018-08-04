@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
 import { SlideshowModule } from 'ng-simple-slideshow';
+import { DragulaModule } from 'ng2-dragula';
 
 import 'hammerjs';
 import { AuthService } from './services/auth.service';
@@ -71,7 +72,8 @@ import { HomeComponent } from './home/home.component';
 		FormsModule,
 		ReactiveFormsModule,
     AppRoutingModule,
-    SlideshowModule
+    SlideshowModule,
+    DragulaModule.forRoot()
   ],
   providers: [
     AuthService,
