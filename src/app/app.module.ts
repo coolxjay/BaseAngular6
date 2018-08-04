@@ -27,7 +27,6 @@ import { MenuComponent } from './menu/menu.component';
 import { GetStartedComponent } from './get-started/get-started.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 
 
@@ -38,7 +37,6 @@ import { HomeComponent } from './home/home.component';
     GetStartedComponent,
     LoginComponent,
     AdminComponent,
-    DashboardComponent,
     HomeComponent,
   ],
   imports: [
